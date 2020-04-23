@@ -2,8 +2,8 @@
  * @description 下半部分的铅笔
  */
 import { Pencil } from "./Pencil.js";
-import { Director } from "../Director.js";
 import { DataStore } from "../base/DataStore.js";
+import { Sprite } from "../base/Sprite.js";
 
 export class DownPencil extends Pencil {
   constructor(top) {
