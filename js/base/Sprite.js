@@ -20,6 +20,7 @@ export class Sprite {
     }
 
     static getImage(key) {
+      // DataStore.getInstance().res返回的是一个map实例，拥有get方法
         return DataStore.getInstance().res.get(key)
     }
 

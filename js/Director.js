@@ -3,6 +3,8 @@
  */
 
 import { DataStore } from "./base/DataStore.js";
+import { UpPencil } from './runtime/UpPencil.js';
+import { DownPencil } from "./runtime/DownPencil.js";
 
  export class Director {
 
@@ -15,10 +17,34 @@ import { DataStore } from "./base/DataStore.js";
 
      constructor() {
         this.dataStore = DataStore.getInstance();
+        this.moveSpeed = 2;
+    }
+
+    createPencil() {
+      const minTop = window.innerHeight/8;
+      const maxTop = window.innerHeight/2;
+      const top = minTop + Math.random()*(maxTop-minTop);
+      this.dataStore.get('pencils').push(new UpPencil(top));
+      this.dataStore.get('pencils').push(new DownPencil(top));
     }
 
     run() {
-        const backgroundSprite = this.dataStore.get('background')
-        backgroundSprite.draw();
+        this.dataStore.get('background').draw();
+        const pencils = this.dataStore.get('pencils');
+        // console.log(pencils[0].x)
+
+        if(pencils[0].x+pencils[0].width<=0&&pencils.length===4) {
+          pencils.shift();
+          pencils.shift();
+        }
+        if(pencils[0].x<=(window.innerWidth-pencils[0].width)/2 && pencils.length===2) {
+          this.createPencil();
+        }
+        this.dataStore.get('pencils').forEach(function(value){
+          value.draw();
+        })
+        this.dataStore.get('land').draw();
+        let timer = requestAnimationFrame(() => { this.run()});
+        this.dataStore.put('timer', timer);
     }
  }
