@@ -9,6 +9,7 @@ import { Land } from './js/runtime/Land.js';
 import { Birds } from './js/player/Birds.js';
 import { StartButton } from './js/player/StartButton.js';
 import { Score } from './js/player/Score.js';
+import { APIExample } from './js/APIExample.js';
 
 export class Main {
     constructor() {
@@ -21,10 +22,25 @@ export class Main {
         loader.onLoaded(map => this.onResourceFirstLoader(map))
     }
 
+    createBackgroundMusic() {
+      const bgm = wx.createInnerAudioContext();
+      bgm.autoplay = true;
+      bgm.loop = true;
+      bgm.src = 'res/bgm.mp3';
+    }
+
     onResourceFirstLoader(map) {
         this.dataStore.canvas = this.canvas;
         this.dataStore.ctx = this.ctx;
         this.dataStore.res = map;
+        this.createBackgroundMusic();
+        const examples = new APIExample();
+        // examples.getUserInfo();
+        // examples.login();
+        // examples.getSettings();
+        // examples.httpExample();
+        // examples.socketExample();
+        // examples.download();
         this.init();
     }
 
