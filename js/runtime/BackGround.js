@@ -3,7 +3,7 @@
  */
 
 import { Sprite } from "../base/Sprite.js";
-
+import { DataStore } from '../base/DataStore.js';
 export class BackGround extends Sprite {
     constructor() {
       // image 不可以从 DataStore.getInstance().get('background') 取 = undefined 
@@ -16,7 +16,7 @@ export class BackGround extends Sprite {
             image.width,
             image.height,
             0, 0,
-            window.innerWidth,
-            window.innerHeight);
+            DataStore.getInstance().canvas.width,
+            DataStore.getInstance().canvas.height);
     }
 }
